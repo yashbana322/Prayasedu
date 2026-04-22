@@ -64,7 +64,11 @@ app.use((err, req, res, next) => {
 })
 
 /* ---- Start Server ---- */
-app.listen(PORT, () => {
-  console.log(`\n🏫 Prayas Server running on port ${PORT}`)
-  console.log(`   Health: http://localhost:${PORT}/api/health\n`)
-})
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n🏫 Prayas Server running on port ${PORT}`)
+    console.log(`   Health: http://localhost:${PORT}/api/health\n`)
+  })
+}
+
+module.exports = app;
