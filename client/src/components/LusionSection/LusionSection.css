@@ -1,0 +1,150 @@
+/* ─────────────────────────────────────────────────────
+   LusionSection — Area of Expertise + Let's Work Together
+   ────────────────────────────────────────────────── */
+
+.lusion-section {
+  position: relative;
+  background-color: var(--color-accent);
+  height: 500vh; /* Enough scroll for entrance → spread → hold → explode → reveal */
+  z-index: 10;
+}
+
+.lusion-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: var(--space-8);
+}
+
+/* ── Header Title ── */
+.lusion-title {
+  position: relative;
+  width: 100%;
+  font-size: clamp(2.5rem, min(9vw, 12vh), 7rem);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.04em;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  margin: var(--space-4) 0 0 0;
+  line-height: 1.05;
+  text-transform: uppercase;
+  perspective: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.lusion-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.lusion-title-line-inner {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* ── "Let's work together!" — sits BEHIND the canvas ── */
+.lusion-final-reveal {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(3rem, 10vw, 9.5rem);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: var(--color-white);
+  letter-spacing: -0.06em;
+  text-align: center;
+  z-index: 5;            /* Below the canvas (z-index: 20) */
+  pointer-events: none;
+  margin: 0;
+  line-height: 1.05;
+  width: 90%;
+  opacity: 0;            /* Hidden initially, GSAP reveals */
+}
+
+/* ── WebGL Canvas — ABOVE the text for 3D volume ── */
+.lusion-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 20;           /* Above the reveal text, particles float over letters */
+  pointer-events: auto;
+  background: transparent;
+}
+
+/* ── Playing Cards ── */
+.lusion-dom-card {
+  position: absolute;
+  width: clamp(200px, min(24vw, 32vh), 360px);
+  aspect-ratio: 0.73;
+  background: var(--color-bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  box-shadow: var(--shadow-xl);
+  cursor: pointer;
+  will-change: transform, opacity;
+}
+
+.lusion-dom-card__icon {
+  font-size: 3.5rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  opacity: 0.15;
+}
+
+.lusion-dom-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-align: center;
+  letter-spacing: -0.03em;
+  margin: 0 0 var(--space-2) 0;
+}
+
+.lusion-dom-card__divider {
+  width: 48px;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-2);
+}
+
+.lusion-dom-card__desc {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .lusion-section {
+    height: 100vh;
+    min-height: 600px;
+  }
+}

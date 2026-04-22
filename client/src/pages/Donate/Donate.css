@@ -1,0 +1,243 @@
+/* ============================================
+   DONATE / PHILANTHROPY PAGE
+   ============================================ */
+
+/* ---- Impact Stories ---- */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.impact-card {
+  padding: var(--space-4);
+}
+
+.impact-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.impact-card__metric {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.impact-card__year {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: var(--radius-full);
+  color: var(--color-gold-400);
+}
+
+.impact-card__title {
+  font-family: var(--font-accent);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.impact-card__desc {
+  font-size: 0.9rem;
+}
+
+/* ---- Trust Grid ---- */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.trust-card {
+  text-align: center;
+  padding: var(--space-4) var(--space-3);
+}
+
+.trust-card__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.trust-card h4 {
+  font-family: var(--font-accent);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.trust-card p {
+  font-size: 0.85rem;
+}
+
+/* ---- Donation Form Wrapper ---- */
+.donate-form-wrapper {
+  padding: var(--space-5);
+}
+
+/* ---- Donation Tiers ---- */
+.donate-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.donate-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-3);
+  background: var(--color-bg-glass-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: left;
+}
+
+.donate-tier:hover {
+  border-color: var(--color-border-hover);
+  background: rgba(212, 175, 55, 0.04);
+}
+
+.donate-tier--active {
+  border-color: var(--color-accent);
+  background: rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.1);
+}
+
+.donate-tier__amount {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.donate-tier__impact {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ---- Custom Amount ---- */
+.donate-custom {
+  margin-bottom: var(--space-4);
+}
+
+.donate-custom label {
+  display: block;
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+.donate-custom__input {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-glass-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.donate-custom__input:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+
+.donate-custom__prefix {
+  padding: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: rgba(212, 175, 55, 0.06);
+  border-right: 1px solid var(--color-border);
+}
+
+.donate-custom__input input {
+  flex: 1;
+  padding: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.donate-custom__input input::placeholder {
+  color: var(--color-navy-400);
+}
+
+.donate-divider {
+  border: none;
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+/* ---- Donate Form ---- */
+.donate-form__title {
+  font-family: var(--font-accent);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-primary);
+}
+
+.donate-submit {
+  width: 100%;
+  margin-top: var(--space-2);
+  font-size: 1.1rem;
+  padding: var(--space-2) var(--space-4);
+}
+
+.donate-secure-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: var(--space-2);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .impact-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

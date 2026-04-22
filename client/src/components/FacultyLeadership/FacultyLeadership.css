@@ -1,0 +1,306 @@
+/* ============================================
+   FACULTY & LEADERSHIP SECTION
+   Light theme — matches site palette
+   8px grid throughout
+   ============================================ */
+
+/* ── Section shell ──────────────────────────────────────────────── */
+.fl-section {
+  position: relative;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+  padding: 104px 0 128px;
+  isolation: isolate;
+}
+
+/* ── SVG hex pattern (very faint on light bg) ───────────────────── */
+.fl-hex-pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Container ──────────────────────────────────────────────────── */
+.fl-section .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section header ─────────────────────────────────────────────── */
+.fl-header {
+  text-align: center;
+  margin-bottom: 88px;
+}
+
+.fl-header__label {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 16px;
+}
+
+.fl-header__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.12;
+  margin-bottom: 0;
+}
+
+.fl-accent {
+  background: linear-gradient(135deg, var(--color-gold-600), var(--color-gold-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Thin horizontal rule under title */
+.fl-header__rule {
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold-300));
+  border-radius: 2px;
+  margin: 24px auto 20px;
+}
+
+.fl-header__sub {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ── Member rows ────────────────────────────────────────────────── */
+.fl-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.fl-row {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  align-items: center;
+  gap: 88px;
+  padding: 80px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.fl-row--odd {
+  grid-template-columns: 400px 1fr;
+}
+
+/* ── Text side ──────────────────────────────────────────────────── */
+.fl-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* will-transform added by GSAP */
+}
+
+.fl-row--odd .fl-text {
+  order: 2;
+}
+
+.fl-index {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-accent);
+  opacity: 0.4;
+  display: block;
+}
+
+.fl-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.18;
+  margin: 0;
+}
+
+.fl-title {
+  font-family: var(--font-accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.fl-divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+  border-radius: 2px;
+  margin: 4px 0;
+}
+
+.fl-quote {
+  font-family: var(--font-body);
+  font-size: 1.04rem;
+  line-height: 1.82;
+  color: var(--color-text-secondary);
+  margin: 0;
+  padding-left: 20px;
+  border-left: 2px solid var(--color-border-hover);
+  font-style: italic;
+}
+
+/* ── Card wrapper (layout + badge positioning) ───────────────────── */
+/*
+ * .fl-card-wrap is the grid cell that holds the card.
+ * It is NOT clipped — so the badge (which sits here) is always visible.
+ * .fl-card INSIDE it receives the SVG clip-path, including its
+ * box-shadow + border, so there is NO white ghost when clipped to zero.
+ */
+.fl-card-wrap {
+  position: relative;
+  aspect-ratio: 6 / 7;
+}
+
+.fl-row--odd .fl-card-wrap {
+  order: 1;
+}
+
+/* ── Image card (clipped by SVG) ────────────────────────────────── */
+.fl-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--color-bg-secondary); /* matches section — invisible if clip opens from 0 */
+  box-shadow:
+    0 24px 64px rgba(15, 23, 42, 0.12),
+    0 4px  16px rgba(15, 23, 42, 0.08),
+    0 0    0 1px var(--color-border);
+  will-change: clip-path;
+}
+
+.fl-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transform-origin: center top;
+  will-change: transform;
+}
+
+/* ── Name badge (outside clip, GSAP controls opacity) ───────────── */
+.fl-card__badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 56px 20px 20px;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.60) 0%,
+    transparent 100%
+  );
+  border-radius: 0 0 20px 20px;
+  pointer-events: none;
+  /* opacity is controlled by GSAP (starts at 0) */
+}
+
+.fl-card__badge span {
+  font-family: var(--font-accent);
+  font-size: 0.83rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.90);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .fl-row,
+  .fl-row--odd {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 64px 0;
+  }
+
+  .fl-card-wrap {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .fl-row--odd .fl-card-wrap,
+  .fl-row--odd .fl-text {
+    order: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .fl-section .container {
+    padding: 0 24px;
+  }
+
+  .fl-section {
+    padding: 72px 0 88px;
+  }
+
+  .fl-header {
+    margin-bottom: 56px;
+  }
+
+  .fl-row {
+    gap: 40px;
+    padding: 48px 0;
+  }
+
+  .fl-quote {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fl-section .container {
+    padding: 0 16px;
+  }
+
+  .fl-card,
+  .fl-card__badge {
+    border-radius: 14px;
+  }
+
+  .fl-card__badge {
+    border-radius: 0 0 14px 14px;
+  }
+
+  .fl-row {
+    gap: 32px;
+    padding: 40px 0;
+  }
+}
+
+/* ── Reduced motion: skip animations, show everything ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  .fl-card {
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  .fl-card__img {
+    transform: none !important;
+  }
+  .fl-text,
+  .fl-card__badge {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

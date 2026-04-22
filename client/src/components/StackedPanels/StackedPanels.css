@@ -1,0 +1,119 @@
+/* ───────────────────────────────────────────────────
+   StackedPanels Component — Styles
+─────────────────────────────────────────────────── */
+
+/* ── Section wrapper ────────────────────────────── */
+.stacked-panels-section {
+  padding: 96px 0 88px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-bg-primary);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border, rgba(15, 23, 42, 0.08));
+  z-index: 1;
+}
+
+/* Decorative purple radial glow */
+.stacked-panels-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(99, 55, 255, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header ─────────────────────────────────────── */
+.stacked-panels-header {
+  text-align: center;
+  padding: 0 24px 48px;
+  position: relative;
+  z-index: 1;
+}
+
+.stacked-panels-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent, #2563eb);
+  margin: 0 0 12px;
+}
+
+.stacked-panels-title {
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.stacked-panels-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── 3D Canvas ──────────────────────────────────── */
+.stacked-panels-canvas {
+  position: relative;
+  width: 100%;
+  height: 720px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 1;
+}
+
+/* ── Hint label ─────────────────────────────────── */
+.stacked-panels-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: 600;
+  opacity: 0.60;
+}
+
+/* ── Reduced motion ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .stacked-panels-canvas * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .stacked-panels-canvas {
+    height: 480px;
+  }
+  .stacked-panels-section {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+}

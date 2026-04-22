@@ -1,0 +1,361 @@
+# get_network_request response
+## Request http://localhost:5173/src/components/LusionSection/LusionSection.jsx?t=1774778237663
+Status:  [failed - 304]
+### Request Headers
+- origin:http://localhost:5173
+- sec-ch-ua-platform:"Windows"
+- referer:http://localhost:5173/src/pages/Home/Home.jsx?t=1774778237663
+- user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+- sec-ch-ua:"Chromium";v="146", "Not-A.Brand";v="24", "Google Chrome";v="146"
+- sec-ch-ua-mobile:?0
+- accept:*/*
+- accept-encoding:gzip, deflate, br, zstd
+- accept-language:en-US,en;q=0.9
+- connection:keep-alive
+- host:localhost:5173
+- if-none-match:W/"39f2-6G9hdpTawQRxES7HFo+NHcND/jI"
+- sec-fetch-dest:script
+- sec-fetch-mode:cors
+- sec-fetch-site:same-origin
+### Response Headers
+- access-control-allow-origin:http://localhost:5173
+- connection:keep-alive
+- date:Sun, 29 Mar 2026 09:58:39 GMT
+- keep-alive:timeout=5
+- vary:Origin
+### Response Body
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/LusionSection/LusionSection.jsx");import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=c4960fa1"; const React = __vite__cjsImport0_react; const useRef = __vite__cjsImport0_react["useRef"]; const useEffect = __vite__cjsImport0_react["useEffect"]; const useState = __vite__cjsImport0_react["useState"];
+import { Canvas, useFrame } from "/node_modules/.vite/deps/@react-three_fiber.js?v=c4960fa1";
+import { Text, RoundedBox } from "/node_modules/.vite/deps/@react-three_drei.js?v=c4960fa1";
+import * as THREE from "/node_modules/.vite/deps/three.js?v=c4960fa1";
+import gsap from "/node_modules/.vite/deps/gsap.js?v=c4960fa1";
+import { ScrollTrigger } from "/node_modules/.vite/deps/gsap_ScrollTrigger.js?v=c4960fa1";
+import "/src/components/LusionSection/LusionSection.css?t=1774778224425";
+var _jsxFileName = "D:/prayas/client/src/components/LusionSection/LusionSection.jsx";
+import __vite__cjsImport7_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=c4960fa1"; const _jsxDEV = __vite__cjsImport7_react_jsxDevRuntime["jsxDEV"]; const _Fragment = __vite__cjsImport7_react_jsxDevRuntime["Fragment"];
+var _s = $RefreshSig$(), _s2 = $RefreshSig$(), _s3 = $RefreshSig$(), _s4 = $RefreshSig$();
+gsap.registerPlugin(ScrollTrigger);
+const EXPERTISE = [
+	{
+		title: "Academic Excellence",
+		desc: "Rigorous curriculum, modern pedagogical methods.",
+		icon: "01"
+	},
+	{
+		title: "Creative Arts",
+		desc: "Unlocking imagination through comprehensive arts programs.",
+		icon: "02"
+	},
+	{
+		title: "Physical Education",
+		desc: "State-of-the-art facilities fostering athletic prowess.",
+		icon: "03"
+	},
+	{
+		title: "Tech Leadership",
+		desc: "Pioneering digital literacy and forward-thinking integration.",
+		icon: "04"
+	}
+];
+// interactive particle field GLSL shader
+const ParticleField = () => {
+	_s();
+	const matRef = useRef();
+	// Generate 1500 dots randomly distributed in space
+	const [particles] = useState(() => {
+		const coords = new Float32Array(1500 * 3);
+		for (let i = 0; i < 1500; i++) {
+			coords[i * 3] = (Math.random() - .5) * 60;
+			coords[i * 3 + 1] = (Math.random() - .5) * 40;
+			coords[i * 3 + 2] = (Math.random() - .5) * 10 - 5;
+		}
+		return coords;
+	});
+	useFrame((state) => {
+		if (!matRef.current) return;
+		matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+		// Project pointer to world coordinate (Z=0 plane)
+		const { raycaster, camera, pointer } = state;
+		raycaster.setFromCamera(pointer, camera);
+		const intersectPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+		const target = new THREE.Vector3();
+		raycaster.ray.intersectPlane(intersectPlane, target);
+		if (target) {
+			// Lerp mouse uniform towards intersection point
+			const uMouse = matRef.current.uniforms.uMouse.value;
+			uMouse.lerp(new THREE.Vector2(target.x, target.y), .1);
+		}
+	});
+	return /* @__PURE__ */ _jsxDEV("points", { children: [/* @__PURE__ */ _jsxDEV("bufferGeometry", { children: /* @__PURE__ */ _jsxDEV("bufferAttribute", {
+		attach: "attributes-position",
+		count: particles.length / 3,
+		array: particles,
+		itemSize: 3
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 53,
+		columnNumber: 9
+	}, this) }, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 52,
+		columnNumber: 7
+	}, this), /* @__PURE__ */ _jsxDEV("shaderMaterial", {
+		ref: matRef,
+		transparent: true,
+		depthWrite: false,
+		uniforms: {
+			uTime: { value: 0 },
+			uMouse: { value: new THREE.Vector2(0, 0) }
+		},
+		vertexShader: `
+          uniform float uTime;
+          uniform vec2 uMouse;
+          void main() {
+            vec3 pos = position;
+            
+            // Mouse Bulge Effect
+            float dist = distance(pos.xy, uMouse);
+            float radius = 5.0; // repel radius
+            if (dist < radius) {
+              vec2 dir = pos.xy - uMouse;
+              float force = (radius - dist) / radius;
+              force = force * force * (3.0 - 2.0 * force); // smoothstep
+              
+              pos.xy += normalize(dir) * force * 1.5;
+              pos.z += force * 2.5; // bulge forward
+            }
+
+            // Organic slow drift
+            pos.y += sin(uTime * 0.5 + pos.x) * 0.15;
+            pos.x += cos(uTime * 0.6 + pos.y) * 0.15;
+
+            vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+            gl_PointSize = (12.0 / -mvPosition.z) * min(dist*0.2 + 0.5, 1.2); // slight size jitter
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+		fragmentShader: `
+          void main() {
+            // circular dot cut-off
+            float distToCenter = distance(gl_PointCoord, vec2(0.5));
+            if (distToCenter > 0.45) discard; 
+            // smooth alpha fade from center
+            float alpha = 1.0 - (distToCenter / 0.45);
+            gl_FragColor = vec4(1.0, 1.0, 1.0, alpha * 0.55);
+          }
+        `
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 55,
+		columnNumber: 7
+	}, this)] }, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 51,
+		columnNumber: 5
+	}, this);
+};
+_s(ParticleField, "t4O8O6KIFe6yH3TxU2HPiwYZ+14=", false, function() {
+	return [useFrame];
+});
+_c = ParticleField;
+// Singular 3D Card Model
+const Card = _s2(React.forwardRef(_c2 = _s2(({ title, desc, icon, index }, ref) => {
+	_s2();
+	const innerRef = useRef(null);
+	const [hovered, setHover] = useState(false);
+	// Subtly float card along sine wave (uncoupled from GSAP, runs constantly)
+	useFrame((state) => {
+		if (innerRef.current && !hovered) {
+			innerRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5 + index * 1.2) * .1;
+		}
+	});
+	useEffect(() => {
+		if (!innerRef.current) return;
+		if (hovered) {
+			gsap.to(innerRef.current.scale, {
+				x: 1.05,
+				y: 1.05,
+				z: 1.05,
+				duration: .4,
+				ease: "power2.out"
+			});
+			gsap.to(innerRef.current.position, {
+				z: .5,
+				y: 0,
+				duration: .4,
+				ease: "power2.out"
+			});
+		} else {
+			gsap.to(innerRef.current.scale, {
+				x: 1,
+				y: 1,
+				z: 1,
+				duration: .4,
+				ease: "power2.out"
+			});
+			gsap.to(innerRef.current.position, {
+				z: 0,
+				duration: .4,
+				ease: "power2.out"
+			});
+		}
+	}, [hovered]);
+	useEffect(() => {
+		document.body.style.cursor = hovered ? "pointer" : "auto";
+		return () => {
+			document.body.style.cursor = "auto";
+		};
+	}, [hovered]);
+	return /* @__PURE__ */ _jsxDEV("group", {
+		ref,
+		children: /* @__PURE__ */ _jsxDEV("group", {
+			ref: innerRef,
+			onPointerOver: () => setHover(true),
+			onPointerOut: () => setHover(false),
+			children: /* @__PURE__ */ _jsxDEV(RoundedBox, {
+				args: [
+					2.8,
+					3.8,
+					.05
+				],
+				radius: .12,
+				smoothness: 4,
+				children: [
+					/* @__PURE__ */ _jsxDEV("meshStandardMaterial", {
+						color: "#ffffff",
+						roughness: .2,
+						metalness: .1
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 141,
+						columnNumber: 11
+					}, this),
+					/* @__PURE__ */ _jsxDEV(Text, {
+						position: [
+							0,
+							.9,
+							.04
+						],
+						color: "#111111",
+						fontSize: .8,
+						anchorY: "middle",
+						children: icon
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 143,
+						columnNumber: 11
+					}, this),
+					/* @__PURE__ */ _jsxDEV(Text, {
+						position: [
+							0,
+							0,
+							.04
+						],
+						color: "#000000",
+						fontSize: .24,
+						fontWeight: "bold",
+						letterSpacing: -.02,
+						anchorY: "middle",
+						textAlign: "center",
+						maxWidth: 2.4,
+						children: title
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 147,
+						columnNumber: 11
+					}, this),
+					/* @__PURE__ */ _jsxDEV("mesh", {
+						position: [
+							0,
+							-.4,
+							.04
+						],
+						children: [/* @__PURE__ */ _jsxDEV("planeGeometry", { args: [.5, .015] }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 152,
+							columnNumber: 13
+						}, this), /* @__PURE__ */ _jsxDEV("meshBasicMaterial", { color: "#d4d4d4" }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 153,
+							columnNumber: 13
+						}, this)]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 151,
+						columnNumber: 11
+					}, this),
+					/* @__PURE__ */ _jsxDEV(Text, {
+						position: [
+							0,
+							-.9,
+							.04
+						],
+						color: "#444",
+						fontSize: .16,
+						maxWidth: 2.2,
+						textAlign: "center",
+						anchorY: "middle",
+						lineHeight: 1.3,
+						children: desc
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 156,
+						columnNumber: 11
+					}, this)
+				]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 140,
+				columnNumber: 9
+			}, this)
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 135,
+			columnNumber: 7
+		}, this)
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 134,
+		columnNumber: 5
+	}, this);
+}, "rIjrZjpJR5tryiAQ7Zh0Wo/fJnM=", false, function() {
+	return [useFrame];
+})), "rIjrZjpJR5tryiAQ7Zh0Wo/fJnM=", false, function() {
+	return [useFrame];
+});
+_c3 = Card;
+const CardsGroup = ({ sectionRef }) => {
+	_s3();
+	const cardRefs = useRef([]);
+	useEffect(() => {
+		if (!sectionRef.current) return;
+		const tl = gsap.timeline({ scrollTrigger: {
+			trigger: sectionRef.current,
+			start: "top top",
+			end: "bottom bottom",
+			scrub: 1.5
+		} });
+		const isMobile = window.innerWidth < 768;
+		// Reset loop
+		cardRefs.current.forEach((card, i) => {
+			// 1. Initial State: Deck formation at bottom center
+			gsap.set(card.position, {
+				x: 0,
+				y: -10,
+				z: (4 - i) * .05
+			});
+			gsap.set(card.rotation, {
+				x: Math.PI / 3,
+				y: 0,
+				z: (Math.random() - .5) * .2
+			});
+			// Stagger
+			const delayOffset = i * .1;
+			// 2. Animate into view from bottom (still stacked-ish)
+			tl.to(card.position, {
+				y: 0,
+				z: (4 - i) * .1,
+				duration: 1,
+				ease: "power3.inOut"
+			}, delayOffset);
+			// 3. Fin... <truncated>

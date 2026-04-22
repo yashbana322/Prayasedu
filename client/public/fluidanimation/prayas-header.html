@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prayas Public School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #1a4fa0;
+      --blue-light: #2563eb;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: #000;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    #hdr {
+      width: 100%;
+      height: 90px;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      background: #000;
+    }
+
+    #hdr canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      height: 90px;
+      padding: 0 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-right: 44px;
+      text-decoration: none;
+    }
+
+    .logo-sq {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: 800 18px/1 'Manrope', sans-serif;
+      color: #fff;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-sq {
+      transform: rotate(-8deg) scale(1.08);
+    }
+
+    .logo-txt .t1 {
+      font: 800 14px/1 'Manrope', sans-serif;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+
+    .logo-txt .t2 {
+      font: 600 8px/1 'Manrope', sans-serif;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 2.8px;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    /* ── NAV LINKS ── */
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .links a {
+      font: 500 13px/1 'Manrope', sans-serif;
+      color: rgba(255,255,255,0.6);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .links a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .links a.active {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 12px;
+      right: 12px;
+      height: 2px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 2px;
+    }
+
+    /* ── APPLY BUTTON ── */
+    .apply-btn {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font: 700 13px/1 'Manrope', sans-serif;
+      padding: 11px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.22);
+      cursor: pointer;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      letter-spacing: 0.2px;
+    }
+
+    .apply-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+    }
+
+    .apply-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+    }
+
+    /* ── DEMO CONTENT BELOW HEADER ── */
+    .page-body {
+      background: #060810;
+      min-height: calc(100vh - 90px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      padding: 60px 40px;
+    }
+
+    .demo-label {
+      font: 500 12px/1 'Manrope', sans-serif;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .demo-title {
+      font: 800 52px/1.1 'Manrope', sans-serif;
+      color: #fff;
+      text-align: center;
+      letter-spacing: -1.5px;
+    }
+
+    .demo-title span {
+      background: linear-gradient(135deg, #7eb3ff, #4a8fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .demo-sub {
+      font: 400 17px/1.7 'Manrope', sans-serif;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      max-width: 480px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      #nav { padding: 0 20px; }
+      .links a:nth-child(n+5) { display: none; }
+      .logo { margin-right: 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .links { display: none; }
+      .logo { margin-right: auto; }
+      .demo-title { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="hdr">
+    <canvas id="c"></canvas>
+
+    <div id="nav">
+      <a class="logo" href="#">
+        <div class="logo-sq">P</div>
+        <div class="logo-txt">
+          <div class="t1">Prayas</div>
+          <div class="t2">Public School</div>
+        </div>
+      </a>
+
+      <nav class="links">
+        <a href="#" class="active">Home</a>
+        <a href="#">About ∨</a>
+        <a href="#">Leadership &amp; Faculty</a>
+        <a href="#">Admissions ∨</a>
+        <a href="#">Philanthropy</a>
+        <a href="#">Gallery</a>
+        <a href="#">Contact</a>
+      </nav>
+
+      <button class="apply-btn">Apply Now</button>
+    </div>
+  </header>
+
+  <!-- PAGE BODY (replace with your actual content) -->
+  <div class="page-body">
+    <div class="demo-label">Welcome to</div>
+    <h1 class="demo-title">Prayas <span>Public School</span></h1>
+    <p class="demo-sub">Shaping tomorrow's leaders through academic excellence, holistic growth, and a culture of curiosity.</p>
+  </div>
+
+  <!-- CANVAS ANIMATION SCRIPT -->
+  <script>
+    const cv = document.getElementById('c');
+    const cx = cv.getContext('2d');
+    const hdr = document.getElementById('hdr');
+
+    let W, H, T = 0;
+    let MX = 0.5, MY = 0.5;
+    let MXs = 0.5, MYs = 0.5;
+    let isOnHeader = false;
+
+    // Custom cursor
+    const cursorCanvas = document.createElement('canvas');
+    cursorCanvas.id = 'cursor';
+    cursorCanvas.width = 60; cursorCanvas.height = 60;
+    cursorCanvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);';
+    document.body.appendChild(cursorCanvas);
+    const cxCur = cursorCanvas.getContext('2d');
+    let cursorX = -100, cursorY = -100;
+
+    document.addEventListener('mousemove', e => {
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      cursorCanvas.style.left = cursorX + 'px';
+      cursorCanvas.style.top = cursorY + 'px';
+    });
+
+    function drawCursorCanvas() {
+      cxCur.clearRect(0, 0, 60, 60);
+      const cx2 = 30, cy2 = 30;
+      cxCur.beginPath();
+      cxCur.arc(cx2, cy2, 3, 0, Math.PI * 2);
+      cxCur.fillStyle = 'rgba(160,210,255,0.95)';
+      cxCur.fill();
+      cxCur.beginPath();
+      cxCur.arc(cx2, cy2, 12, 0, Math.PI * 2);
+      cxCur.strokeStyle = 'rgba(100,170,255,0.45)';
+      cxCur.lineWidth = 1;
+      cxCur.stroke();
+      cxCur.beginPath();
+      cxCur.arc(cx2, cy2, 24, 0, Math.PI * 2);
+      cxCur.strokeStyle = 'rgba(60,130,255,0.18)';
+      cxCur.lineWidth = 0.8;
+      cxCur.stroke();
+    }
+
+    function resize() {
+      W = cv.width = hdr.offsetWidth;
+      H = cv.height = hdr.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    hdr.addEventListener('mousemove', e => {
+      const r = hdr.getBoundingClientRect();
+      MX = (e.clientX - r.left) / W;
+      MY = (e.clientY - r.top) / H;
+      isOnHeader = true;
+    });
+    hdr.addEventListener('mouseleave', () => { isOnHeader = false; });
+
+    // ── STARS ──
+    const STARS = Array.from({ length: 110 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 0.9 + 0.2,
+      tw: Math.random() * Math.PI * 2,
+      spd: 0.4 + Math.random() * 1.6
+    }));
+
+    function drawBase() {
+      cx.fillStyle = '#040608';
+      cx.fillRect(0, 0, W, H);
+    }
+
+    function drawNebula() {
+      const clouds = [
+        { x: 0.15, y: 0.35, r: 0.32, h: 220, a: 0.045 },
+        { x: 0.80, y: 0.55, r: 0.26, h: 200, a: 0.038 },
+        { x: 0.50, y: 0.15, r: 0.38, h: 240, a: 0.032 },
+        { x: 0.65, y: 0.80, r: 0.22, h: 260, a: 0.028 },
+      ];
+      clouds.forEach(cl => {
+        const g = cx.createRadialGradient(cl.x * W, cl.y * H, 0, cl.x * W, cl.y * H, cl.r * W);
+        g.addColorStop(0, `hsla(${cl.h},70%,55%,${cl.a})`);
+        g.addColorStop(1, `hsla(${cl.h},60%,40%,0)`);
+        cx.fillStyle = g;
+        cx.fillRect(0, 0, W, H);
+      });
+    }
+
+    function drawStars() {
+      STARS.forEach(s => {
+        s.tw += 0.018 * s.spd;
+        const a = 0.12 + 0.6 * (0.5 + 0.5 * Math.sin(s.tw));
+        cx.beginPath();
+        cx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+        cx.fillStyle = `rgba(200,215,255,${a})`;
+        cx.fill();
+      });
+    }
+
+    // ── SPACE ARC (atmospheric limb) ──
+    function drawSpaceArc(offsetT, colorStops, arcY, arcCurve, width, alpha) {
+      const sweep = Math.sin(offsetT) * 0.5 + 0.5;
+      const cx0 = -W * 0.3 + sweep * W * 1.6;
+      const cpx = cx0 + W * 0.5;
+      const cpy = arcY * H - arcCurve * H * 1.2;
+      const ex  = cx0 + W;
+      const ey  = arcY * H + arcCurve * H * 0.3;
+      const cy0 = arcY * H + arcCurve * H * 0.8;
+
+      const widths = [width * 4, width * 2, width, width * 0.4, width * 0.15];
+      const alphas = [0.04, 0.08, 0.18, 0.45, 0.9];
+
+      widths.forEach((lw, li) => {
+        cx.save();
+        cx.beginPath();
+        cx.moveTo(cx0 - W * 0.1, cy0);
+        cx.quadraticCurveTo(cpx, cpy, ex + W * 0.1, ey);
+        const a = alpha * alphas[li];
+        const col = colorStops[Math.min(li, colorStops.length - 1)];
+        cx.strokeStyle = col + `${a})`;
+        cx.lineWidth = lw;
+        cx.lineCap = 'round';
+        cx.stroke();
+        cx.restore();
+      });
+    }
+
+    function drawAtmosphericArcs() {
+      // Primary white/blue core — the blazing bright limb
+      drawSpaceArc(T * 0.38, [
+        'rgba(255,255,255,', 'rgba(220,235,255,',
+        'rgba(180,210,255,', 'rgba(140,190,255,', 'rgba(100,160,255,'
+      ], 1.05, 0.6, 6, 1.0);
+
+      // Golden/orange outer halo
+      drawSpaceArc(T * 0.38 + 0.18, [
+        'rgba(255,185,65,',  'rgba(255,155,42,',
+        'rgba(240,122,30,',  'rgba(200,90,20,',  'rgba(160,60,10,'
+      ], 1.18, 0.72, 4, 0.85);
+
+      // Blue outer limb edge
+      drawSpaceArc(T * 0.38 - 0.12, [
+        'rgba(80,160,255,',  'rgba(60,130,240,',
+        'rgba(40,100,220,',  'rgba(20,70,200,',  'rgba(10,40,180,'
+      ], 0.95, 0.5, 3.5, 0.75);
+
+      // Thin cyan/teal fringe
+      drawSpaceArc(T * 0.38 + 0.08, [
+        'rgba(100,220,200,', 'rgba(80,200,180,',
+        'rgba(60,180,160,',  'rgba(40,150,130,', 'rgba(20,120,110,'
+      ], 1.02, 0.58, 2, 0.6);
+
+      // Second sweep (offset by half cycle — two arcs visible like ref)
+      const off = Math.PI * 0.9;
+      drawSpaceArc(T * 0.38 + off, [
+        'rgba(255,255,255,', 'rgba(220,235,255,',
+        'rgba(180,210,255,', 'rgba(140,190,255,', 'rgba(100,160,255,'
+      ], 1.05, 0.6, 6, 0.5);
+
+      drawSpaceArc(T * 0.38 + off + 0.18, [
+        'rgba(255,185,65,',  'rgba(255,155,42,',
+        'rgba(240,122,30,',  'rgba(200,90,20,',  'rgba(160,60,10,'
+      ], 1.18, 0.72, 4, 0.4);
+
+      drawSpaceArc(T * 0.38 + off - 0.12, [
+        'rgba(80,160,255,',  'rgba(60,130,240,',
+        'rgba(40,100,220,',  'rgba(20,70,200,',  'rgba(10,40,180,'
+      ], 0.95, 0.5, 3.5, 0.38);
+    }
+
+    function drawHorizonGlow() {
+      const sweep = Math.sin(T * 0.38) * 0.5 + 0.5;
+      const cx0 = -W * 0.3 + sweep * W * 1.6;
+      const g = cx.createRadialGradient(cx0 + W * 0.5, H * 1.8, 0, cx0 + W * 0.5, H * 1.8, W * 1.1);
+      g.addColorStop(0, 'rgba(255,255,255,0.06)');
+      g.addColorStop(0.3, 'rgba(100,160,255,0.04)');
+      g.addColorStop(0.6, 'rgba(255,140,40,0.02)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      cx.fillStyle = g;
+      cx.fillRect(0, 0, W, H);
+    }
+
+    function drawMouseGlow() {
+      MXs += (MX - MXs) * 0.05;
+      MYs += (MY - MYs) * 0.05;
+      if (!isOnHeader) return;
+      const g = cx.createRadialGradient(MXs * W, MYs * H, 0, MXs * W, MYs * H, W * 0.28);
+      g.addColorStop(0, 'rgba(80,140,255,0.12)');
+      g.addColorStop(0.5, 'rgba(40,80,200,0.05)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      cx.fillStyle = g;
+      cx.fillRect(0, 0, W, H);
+    }
+
+    function drawVignette() {
+      const g = cx.createRadialGradient(W / 2, H / 2, H * 0.05, W / 2, H / 2, W * 0.72);
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, 'rgba(0,0,8,0.7)');
+      cx.fillStyle = g;
+      cx.fillRect(0, 0, W, H);
+    }
+
+    // ── SHOOTING STARS ──
+    const shoots = [];
+    let nextShoot = 80;
+
+    function spawnShoot() {
+      shoots.push({
+        x: Math.random() * W,
+        y: Math.random() * H * 0.7,
+        len: 55 + Math.random() * 80,
+        speed: 5 + Math.random() * 7,
+        angle: Math.PI * 0.17 + (Math.random() - 0.5) * 0.2,
+        life: 1
+      });
+    }
+
+    function drawShoots() {
+      nextShoot--;
+      if (nextShoot <= 0) { spawnShoot(); nextShoot = 100 + Math.random() * 130; }
+      for (let i = shoots.length - 1; i >= 0; i--) {
+        const s = shoots[i];
+        s.x += Math.cos(s.angle) * s.speed;
+        s.y += Math.sin(s.angle) * s.speed;
+        s.life -= 0.022;
+        if (s.life <= 0 || s.x > W + 100) { shoots.splice(i, 1); continue; }
+        const tx = s.x - Math.cos(s.angle) * s.len;
+        const ty = s.y - Math.sin(s.angle) * s.len;
+        const g = cx.createLinearGradient(tx, ty, s.x, s.y);
+        g.addColorStop(0, 'rgba(120,180,255,0)');
+        g.addColorStop(0.6, `rgba(180,220,255,${s.life * 0.5})`);
+        g.addColorStop(1, `rgba(255,255,255,${s.life * 0.9})`);
+        cx.beginPath();
+        cx.moveTo(tx, ty); cx.lineTo(s.x, s.y);
+        cx.strokeStyle = g; cx.lineWidth = 1.5; cx.stroke();
+        cx.beginPath();
+        cx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+        cx.fillStyle = `rgba(255,255,255,${s.life})`;
+        cx.fill();
+      }
+    }
+
+    // ── MAIN LOOP ──
+    function loop() {
+      T += 0.008;
+      drawBase();
+      drawNebula();
+      drawStars();
+      drawAtmosphericArcs();
+      drawHorizonGlow();
+      drawShoots();
+      drawVignette();
+      drawMouseGlow();
+      drawCursorCanvas();
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>
