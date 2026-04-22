@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import PageTransition, { childVariants } from '../../components/PageTransition/PageTransition'
+import { API_URL } from '../../config'
 import './Contact.css'
 
 export default function Contact() {
@@ -25,7 +26,7 @@ export default function Contact() {
   const handleContactSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(contactForm),
@@ -39,7 +40,7 @@ export default function Contact() {
   const handleTourSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch('http://localhost:5000/api/book-tour', {
+      const res = await fetch(`${API_URL}/api/book-tour`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tourForm),

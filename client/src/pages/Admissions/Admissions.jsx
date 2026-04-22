@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageTransition, { childVariants } from '../../components/PageTransition/PageTransition'
+import { API_URL } from '../../config'
 import './Admissions.css'
 
 const FEE_DATA = {
@@ -87,7 +88,7 @@ export default function Admissions() {
     e.preventDefault()
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost:5000/api/enquiry', {
+      const res = await fetch(`${API_URL}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
